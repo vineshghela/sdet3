@@ -1,0 +1,36 @@
+/* body{
+    background-color: forestgreen;
+} */
+/* img#amz{
+    width: 10%;
+    height: 5%;
+} */
+
+nav.navbar.navbar-expand-lg.navbar-light.bg-light{
+    padding:20px
+}
+
+
+img.d-block.w-100{
+    height: 400px;
+}
+
+#basic-addon1-search{
+    color:black;
+    background: #FF9900 ;
+}
+
+
+.btn-danger{
+    background-color: #FF9900;
+    color:black;
+}
+
+#prevArrow{
+    background-color: red;
+}
+
+
+.carousel-control-next, .carousel-control-prev {
+    color: red!important;
+}
