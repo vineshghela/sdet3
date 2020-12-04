@@ -23,7 +23,7 @@ myDiv.appendChild(para);
 
 // the url we want
 function getData(){
-fetch('http://jsonplaceholder.typicode.com/posts/')
+fetch('http://localhost:8082/Book/read')
   .then(
     function(response) {
       if (response.status !== 200) {
@@ -33,7 +33,8 @@ fetch('http://jsonplaceholder.typicode.com/posts/')
       }
       // Examine the text in the response
       response.json().then(function(data) {
-          createPara(data);
+        console.log(data) 
+        // createPara(data);
 
       });
     }
@@ -42,19 +43,19 @@ fetch('http://jsonplaceholder.typicode.com/posts/')
     console.log('Fetch Error :-S', err);
   });
 }
+
 function createPara(data){
     for (let i =0; i<data.length;i++) {
-    let para = document.createElement("P"); // Create a <p> element
-    para.className ="alert alert-danger";
-    para.innerText = `
-    ${(document.querySelector("#resp").innerHTML = data[i].id)}
-    ${(document.querySelector("#resp").innerHTML = data[i].title)}
-    ${(document.querySelector("#resp").innerHTML = data[i].body)}
-    ${(document.querySelector("#resp").innerHTML = data[i].userId)}`
+    let para = document.createElement("p"); // Create a <p> element
+    para.className ="alert alert-warning";
+    para.style.color="blue"
+    para.innerText = ` id is:${data[i].id} and the tile is ${data[i].title} the body is ${data[i].body} and the user id ${data[i].userId} `
   let myDiv = document.getElementById("myDiv");
     myDiv.appendChild(para);
     }
 }
+
+
 
 
 
@@ -141,24 +142,24 @@ let bar = "Vinesh"
 // //     "body":noteBody
 // // }
 
-// function postData( title,body){
-// fetch('http://jsonplaceholder.typicode.com/posts', {
-//     method: 'post', //post, put,delete
-//     headers: {
-//       "Content-type": "application/json; charset=UTF-8"
-//     },
-//     body:{
-//         "title":title,
-//         "body": body
-//     }
-//   })
-//   .then(function (data) {
-//     console.log('Request succeeded with JSON response', data);
+function postData( title,body){
+fetch('http://jsonplaceholder.typicode.com/posts', {
+    method: 'put', //post, put,delete
+    headers: {
+      "Content-type": "application/json; charset=UTF-8"
+    },
+    body:{
+        "title":title,
+        "body": body
+    }
+  })
+  .then(function (data) {
+    console.log('Request succeeded with JSON response', data);
 
 
-//   })
-//   .catch(function (error) {
-//     console.log('Request failed', error);
-//   })
+  })
+  .catch(function (error) {
+    console.log('Request failed', error);
+  })
 
-// }
+}
