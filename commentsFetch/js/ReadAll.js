@@ -1,7 +1,7 @@
 
 
 
-fetch('http://jsonplaceholder.typicode.com/comments')
+fetch('http://localhost:9092/car/read/')
   .then(
     function(response) {
       if (response.status !== 200) {
@@ -15,7 +15,7 @@ fetch('http://jsonplaceholder.typicode.com/comments')
        
 
         let table = document.querySelector("table");
-        let data = Object.keys(commentData[0]);
+        let data = Object.keys(commentData[0]); // first record in the array pos 0
         
         createTableHead(table,data);
         createTableBody(table,commentData);
@@ -31,9 +31,6 @@ fetch('http://jsonplaceholder.typicode.com/comments')
       let tableHead= table.createTHead();
       let row = tableHead.insertRow();
       for(let keys of data){
-        if(keys == "students"){
-          console.log("skip");
-        }else{
           // console.log("data",data)
           let th = document.createElement("th");
           let text = document.createTextNode(keys);
@@ -41,15 +38,14 @@ fetch('http://jsonplaceholder.typicode.com/comments')
           row.appendChild(th)
         }
       }
-      let th2 = document.createElement("th")
-      let text2 = document.createTextNode("View");
-      th2.appendChild(text2);
-      row.appendChild(th2);
-      let th3 = document.createElement("th")
-      let text3 = document.createTextNode("Delete");
-      th3.appendChild(text3);
-      row.appendChild(th3);
-  }
+      // let th2 = document.createElement("th")
+      // let text2 = document.createTextNode("View");
+      // th2.appendChild(text2);
+      // row.appendChild(th2);
+      // let th3 = document.createElement("th")
+      // let text3 = document.createTextNode("Delete");
+      // th3.appendChild(text3);
+      // row.appendChild(th3);
 
   function createTableBody(table,commentData){
       for(let commentRecord of commentData){
@@ -61,19 +57,19 @@ fetch('http://jsonplaceholder.typicode.com/comments')
             }
             let newCell = row.insertCell();
             let myViewButton = document.createElement("a");
-            let myButtonValue = document.createTextNode("View/Edit")
+            let myButtonValue = document.createTextNode("View one")
             myViewButton.className ="btn btn-warning";
             myViewButton.href="readOne.html?id="+commentRecord.id
             myViewButton.appendChild(myButtonValue);
             newCell.appendChild(myViewButton)
-          let newCellDelete = row.insertCell();
-          let myDelButton = document.createElement("button");
-          let myButtonValue1 = document.createTextNode("Delete a record")
-          myDelButton.className ="btn btn-success";
-          myDelButton.onclick = function(){
-            delStudent(commentRecord.id);return false;
+          // let newCellDelete = row.insertCell();
+          // let myDelButton = document.createElement("button");
+          // let myButtonValue1 = document.createTextNode("Delete a record")
+          // myDelButton.className ="btn btn-success";
+          // myDelButton.onclick = function(){
+          //   delStudent(commentRecord.id);return false;
           };
-          myDelButton.appendChild(myButtonValue1);
-          newCellDelete.appendChild(myDelButton)
-      }
+      //     myDelButton.appendChild(myButtonValue1);
+      //     newCellDelete.appendChild(myDelButton)
+      // }
   }

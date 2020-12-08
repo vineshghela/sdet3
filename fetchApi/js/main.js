@@ -39,8 +39,8 @@ fetch('http://localhost:8082/Book/read')
       });
     }
   )
-  .catch(function(err) {
-    console.log('Fetch Error :-S', err);
+  .catch(function(apples) {
+    console.log('Fetch Error :-S', apples);
   });
 }
 

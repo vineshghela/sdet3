@@ -10,7 +10,7 @@ for(let param of params ){
 }
 
 function getData(id){
-    fetch('http://jsonplaceholder.typicode.com/comments/'+id)
+    fetch('http://localhost:9092/car/read/'+id)
       .then(
         function(response) {
           if (response.status !== 200) {
@@ -22,11 +22,11 @@ function getData(id){
           response.json().then(function(data) {
              console.log("MY DATA OBJ",data)
 
-             document.querySelector("input#commentPostId").value = data.postId
+             document.querySelector("input#commentPostId").value = data.colour
              document.querySelector("input#commentId").value = data.id
-             document.querySelector("input#commentName").value = data.name
-             document.querySelector("input#commentEmail").value = data.email
-             document.querySelector("textarea#commentBody").value = data.body
+             document.querySelector("input#commentName").value = data.make
+             document.querySelector("input#commentEmail").value = data.model
+             document.querySelector("textarea#commentBody").value = data.doors
     
           });
         }
@@ -50,13 +50,46 @@ function getData(id){
     let body =formElements["commentBody"].value;
 
     let data = {
-        "postId":postid,
-        "id":id,
-        "name":name,
-        "email":email,
-        "body":body
+      "name":"Vinesh",
+      "make":name,
+      "model":email,
+      "doors":body,
+      "colour":"Red",
+      "garage":{
+          "id":2
+      }
     }
     console.log("Data to post",data)
+    console.log(id)
 
+    sendData(data,id)
     // postData(noteTitle,noteBody)
   });
+
+
+  function sendData(data,id){
+    fetch("http://localhost:9092/car/update/"+id, {
+        method: 'put',
+        headers: {
+          "Content-type": "application/json; charset=UTF-8"
+        },
+        body:JSON.stringify(data)
+      })
+      .then(function (data) {
+        console.log('Request succeeded with JSON response', data);
+      })
+      .catch(function (error) {
+        console.log('Request failed', error);
+      });
+    }
+
+    function deleteByid(id){
+      fetch("http://localhost:9092/car/delete/"+id, {
+          method: 'delete',
+          headers: {
+            "Content-type": "application/json; charset=UTF-8"
+          },
+        })
+        
+        
+      }
