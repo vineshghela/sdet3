@@ -37,9 +37,7 @@ function getData(id){
     }
 
 
-    document
-  .querySelector("form.viewRecord")
-  .addEventListener("submit", function (stop) {
+    document.querySelector("form.viewRecord").addEventListener("submit", function (stop) {
     stop.preventDefault();
     let formElements = document.querySelector("form.viewRecord").elements;
     console.log(formElements)
@@ -82,6 +80,7 @@ function getData(id){
         console.log('Request failed', error);
       });
     }
+
 
     function deleteByid(id){
       fetch("http://localhost:9092/car/delete/"+id, {

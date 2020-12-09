@@ -1,7 +1,35 @@
 
 
+function createElement(data){
 
-fetch('http://localhost:9092/car/read/')
+  for (const q of data) {
+
+          const myDiv = document.querySelector('#myDiv');
+
+          const pid = document.createElement('p');
+          const pname = document.createElement('p');
+          const pmake = document.createElement('p');
+          const pmodel = document.createElement('p');
+          const button = document.createElement('a')
+          const div = document.createElement('div');
+          const newLine = document.createElement('br');
+
+
+        myDiv.className = 'alert alert-danger';          //for styling
+        pid.innerHTML ="ID:"+q.id
+        pname.innerHTML ="Car make is:"+q.name
+        pmake.innerHTML =q.make
+        pmodel.innerHTML =q.model
+        button.innerHTML = "View"
+        button.className = "btn btn-danger"
+        button.href = "readOne.html?id="+q.id
+      div.append(pid, pname, pmake, pmodel, button, newLine);
+      myDiv.append(div);
+  }
+}
+
+
+fetch('http://localhost:9092/garage/read/')
   .then(
     function(response) {
       if (response.status !== 200) {
@@ -12,13 +40,21 @@ fetch('http://localhost:9092/car/read/')
 
       // Examine the text in the response
       response.json().then(function(commentData) {
+
+        console.log(commentData[1])
+        console.log(commentData[1].cars)
+        
+        console.log(commentData[1].cars[0])
+        console.log(commentData[1].cars[1])
+
+        // createElement(commentData)
        
 
-        let table = document.querySelector("table");
-        let data = Object.keys(commentData[0]); // first record in the array pos 0
+        // let table = document.querySelector("table");
+        // let data = Object.keys(commentData[0]); // first record in the array pos 0
         
-        createTableHead(table,data);
-        createTableBody(table,commentData);
+        // createTableHead(table,data);
+        // createTableBody(table,commentData);
         
       });
     }
@@ -73,3 +109,40 @@ fetch('http://localhost:9092/car/read/')
       //     newCellDelete.appendChild(myDelButton)
       // }
   }
+
+
+  document.addEventListener('DOMContentLoaded', ()=>{
+    function fetchData() {
+        fetch('http://localhost:3000/quotes')
+        .then(resp => resp.json())
+        .then(data => renderQuotes(data))
+      }
+      function renderQuotes(data) {
+          for (const q of data) {
+    //Find the container where we attach everything to
+          const quoteUL = document.querySelector('#quote-list');
+    //Create all necessary elements
+          const quoteLi = document.createElement('li');
+          const blockQuote = document.createElement('blockquote');
+          const p = document.createElement('p');
+          const footer = document.createElement('footer');
+          const br = document.createElement('br');
+          const hr = document.createElement('hr')
+    //Add appropriate classes and ids. Grab data and insert if needed.
+          quoteLi.className = 'quote-card';          //for styling
+          blockQuote.className = 'blockquote';       //for styling
+          p.className = 'mb-0';                      //for styling
+          footer.className = 'blockquote-footer';    //for styling
+          quoteLi.dataset.id = q.id
+    //Grab data and insert it into created elements
+          p.innerHTML = q.quote;
+          footer.innerHTML = q.author;
+    //Append everything to main container
+          blockQuote.append(p, footer, br, hr);
+          quoteLi.append(blockQuote);
+          quoteUL.append(quoteLi);
+          }
+       }
+    //Call the function that will automatically run renderQuote() also 
+       fetchData();
+    })
